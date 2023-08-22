@@ -37,7 +37,7 @@ class Musician {
   constructor(name, instrument) {
     this.#name = name;
     this.#instrument = instrument;
-    this.count++;
+    Musician.count++;
     // Конструктор приймає два параметри: name та instrument
     // присвоєння вхідного значення name до приватного поля #name
     // присвоєння вхідного значення instrument до приватного поля #instrument
@@ -214,7 +214,7 @@ class Bassist extends Musician {
 }
 
 Object.defineProperty(Musician.prototype, "band", {
-  set band(newBand) {
+  set: function (newBand) {
     this.band = newBand;
   },
 });
@@ -257,7 +257,7 @@ class Band {
 
   addMember(newMember) {
     if (newMember instanceof Musician) {
-      this.#name = newMember.band;
+     newMember.band =  this.#name;
       this.#members.push(newMember);
     } else {
       console.log("Новий учасник повинен бути екземпляром класу Musician");
@@ -265,8 +265,8 @@ class Band {
   }
 
   playMusic() {
-    this.#members.forEach((members) => {
-      members.play();
+    this.#members.forEach((member) => {
+      member.play();
     });
   }
   // Об'являємо приватні поля #name; #members;
